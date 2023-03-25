@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Information about person</title>
+</head>
+<body>
+
+<p th:text="${'Название книги: ' + book.getName()}">Name</p>
+<p th:text="${'Автор: ' + book.getAuthor()}">Birthday</p>
+<p th:text="${'Год издания: ' + book.getYear()}">Year</p>
+
+<a th:href="@{/books/{id}/delete (id=${book.getBook_id()})}">Удалить!</a>
+
+</body>
+</html>
