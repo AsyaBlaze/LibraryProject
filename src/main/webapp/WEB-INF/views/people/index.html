@@ -6,9 +6,16 @@
 </head>
 <body>
 
+<div class="header" >
+    <ul id="menu" >
+        <li style="padding-left: 40%; display: inline-block"><a class="link" href="/books">Books</a>&emsp;&emsp;</li>
+        <li style="padding-left: 10%;display: inline-block"><a class="link" href="/people">People</a>&emsp;&emsp;</li>
+    </ul>
+</div>
+
 <div th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getPerson_id()})}"
-       th:text="${person.getFull_name() + ', ' + person.getYearOfBirthday()}">user</a>
+       th:text="${person.getFull_name() + ', ' + person.getYear_birthday()}">user</a>
 </div>
 
 <br/>

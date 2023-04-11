@@ -27,14 +27,14 @@ public class PeopleValidator implements Validator {
         Person person = (Person) target;
 
         if (personDAO.show(person.getFull_name()).isPresent()) {
-            errors.rejectValue("full_name", "", "Это ФИО уже есть в Базе данных");
+            errors.rejectValue("full_name", "", "This full name is already in the Database");
         }
-        if (Integer.parseInt(person.getYearOfBirthday()) > (Year.now().getValue() - 14)) {
-            errors.rejectValue("birthday", "", "Боюсь вы слишком молоды чтобы брать книги");
+        if (person.getYear_birthday() > (Year.now().getValue() - 14)) {
+            errors.rejectValue("birthday", "", "I'm afraid you're too young to take books");
         }
-        if (Integer.parseInt(person.getYearOfBirthday()) < (Year.now().getValue() - 130)) {
-            errors.rejectValue("birthday", "", "Боюсь это не библиотека для сверхестественных " +
-                    "существ. Либо вы ввели неправильный год рождения");
+        if (person.getYear_birthday() < (Year.now().getValue() - 130)) {
+            errors.rejectValue("birthday", "", "I'm afraid this is not a library for supernatural beings. " +
+                    "Or you entered the wrong year of birth");
         }
     }
 }

@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import jakarta.validation.Valid;
+import org.example.models.Book;
 import org.example.models.Person;
 import org.example.util.PeopleValidator;
 import org.example.dao.*;
@@ -35,6 +36,23 @@ public class PeopleController {
         return "people/info";
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personDAO.findById(id));
+        return "people/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@PathVariable("id") int id,
+                         @ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult) {
+        peopleValidator.validate(person, bindingResult);
+        if (bindingResult.hasErrors())
+            return "people/edit";
+        personDAO.update(id, person);
+        return "redirect:/people";
+    }
+
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
@@ -50,7 +68,7 @@ public class PeopleController {
         return "redirect:/people";
     }
 
-    @GetMapping("/{id}/delete")
+    @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
         personDAO.delete(id);
         return "redirect:/people";

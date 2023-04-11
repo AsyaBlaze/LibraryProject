@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit information about book</title>
+    <link rel="stylesheet" type="text/css" href="/./WEB-INF/views/style.css">
+</head>
+<body>
+
+<div class="header" >
+    <ul id="menu" >
+        <li style="padding-left: 40%; display: inline-block"><a class="link" href="/books">Books</a>&emsp;&emsp;</li>
+        <li style="padding-left: 10%;display: inline-block"><a class="link" href="/people">People</a>&emsp;&emsp;</li>
+    </ul>
+</div>
+
+<form th:method="PATCH" th:action="@{/books/{id}(id=${book.getBook_id()})}" th:object="${book}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>
+    <br/>
+    <label for="author">Enter author: </label>
+    <input type="text" th:field="*{author}" id="author"/>
+    <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">author error</div>
+    <br/>
+    <label for="year">Enter year: </label>
+    <input type="text" th:field="*{year}" id="year"/>
+    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">year error</div>
+    <br/>
+    <input type="submit" value="Edit!"/>
+</form>
+
+</body>
+</html>

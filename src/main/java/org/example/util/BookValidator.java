@@ -35,7 +35,7 @@ public class BookValidator implements Validator {
             errors.rejectValue("year", "", "Год должен состоять из 4 цифр");
         }
         if (book.getYear() > (Year.now().getValue())) {
-            errors.rejectValue("year", "", "Боюсь вы слишком молоды чтобы брать книги");
+            errors.rejectValue("year", "", "Вы не можете добавить книгу, так как она ещё не вышла");
         }
     }
 }

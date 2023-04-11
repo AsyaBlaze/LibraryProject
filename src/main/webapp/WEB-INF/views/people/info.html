@@ -5,20 +5,34 @@
     <title>Information about person</title>
 </head>
 <body>
-<p th:text="${'ФИО: ' + person.getFull_name()}">Name</p>
-<p th:text="${'Дата рождения: ' + person.getBirthday()}">Birthday</p>
+
+<div class="header" >
+    <ul id="menu" >
+        <li style="padding-left: 40%; display: inline-block"><a class="link" href="/books">Books</a>&emsp;&emsp;</li>
+        <li style="padding-left: 10%;display: inline-block"><a class="link" href="/people">People</a>&emsp;&emsp;</li>
+    </ul>
+</div>
+
+<p th:text="${'Full name: ' + person.getFull_name()}">Name</p>
+<p th:text="${'Year of birthday: ' + person.getYear_birthday()}">Birthday</p>
 
 <div th:if="${books.size()!=0}">
-    <p>Выданные книги: </p>
-    <div th:each="book : ${books}">
-        <p th:text="${book.getName()}"></p>
-    </div>
+    <b>Issued books: </b>
+    <ul th:each="book : ${books}">
+        <li th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">Here</li>
+    </ul>
 </div>
 <div th:unless="${books.size()!=0}">
-    <p>Этот пользователь ещё не взял книги</p>
+    <p>This user has not taken the books yet</p>
 </div>
-
-<a th:href="@{/people/{id}/delete (id=${person.getPerson_id})}">Удалить!</a>
+<br>
+<form th:method="GET" th:action="@{/people/{id}/edit (id=${person.getPerson_id()})}">
+    <input type="submit" value="Edit"/>
+</form>
+<br>
+<form th:method="DELETE" th:action="@{/people/{id}/delete (id=${person.getPerson_id})}">
+    <input type="submit" value="Delete"/>
+</form>
 
 </body>
 </html>

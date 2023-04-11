@@ -1,38 +1,36 @@
 package org.example.models;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class Person {
-    @NotNull
+
+    @NotEmpty(message = "The name should not be empty")
+    @Size(min = 2, max = 100, message = "The name must be between 2 and 100 characters long")
     private String full_name;
 
-    @NotNull
-    @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Дата рождения должна быть в формате: 0000-00-00")
-    private String birthday;
+    @NotNull(message = "The year of birth must be filled in")
+    private int year_birthday;
 
     private int person_id;
 
     public Person() {
     }
 
-    public Person(int id, String full_name, String birthday) {
+    public Person(int id, String full_name, int year_birthday) {
         this.full_name = full_name;
-        this.birthday = birthday;
+        this.year_birthday = year_birthday;
         this.person_id = id;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public int getYear_birthday() {
+        return year_birthday;
     }
 
-    public String getYearOfBirthday() {
-        String[] date = birthday.split("-");
-        return date[0];
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setYear_birthday(int year_birthday) {
+        this.year_birthday = year_birthday;
     }
 
     public int getPerson_id() {

@@ -1,20 +1,20 @@
 package org.example.models;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public class Book {
     private int book_id;
 
-    @NotNull
+    @NotEmpty(message = "The title of the book should not be empty")
+    @Size(min = 2, max = 100, message = "The title of the book should be from 2 to 100 characters long")
     private String name;
 
-    @NotNull
+    @NotEmpty(message = "The author should not be empty")
+    @Size(min = 2, max = 100, message = "The author's name must be from 2 to 100 characters long")
     private String author;
 
     @NotNull
     private int year;
-
-    private int person_id;
 
     public Book(int book_id, String name, String author, int year) {
         this.book_id = book_id;
@@ -56,14 +56,6 @@ public class Book {
 
     public void setBook_id(int book_id) {
         this.book_id = book_id;
-    }
-
-    public int getPerson_id() {
-        return person_id;
-    }
-
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
     }
 }
 
