@@ -3,42 +3,53 @@ package org.example.controllers;
 import jakarta.validation.Valid;
 import org.example.models.Book;
 import org.example.models.Person;
+import org.example.services.BooksService;
+import org.example.services.PeopleService;
 import org.example.util.PeopleValidator;
-import org.example.dao.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
     private final PeopleValidator peopleValidator;
-    private final PersonDAO personDAO;
-    private final BookDAO bookDAO;
+    private final PeopleService peopleService;
+    private final BooksService booksService;
 
-    public PeopleController(PeopleValidator peopleValidator, PersonDAO perssonDAO, BookDAO bookDAO) {
+    @Autowired
+    public PeopleController(PeopleValidator peopleValidator, PeopleService peopleService, BooksService booksService) {
         this.peopleValidator = peopleValidator;
-        this.personDAO = perssonDAO;
-        this.bookDAO = bookDAO;
+        this.peopleService = peopleService;
+        this.booksService = booksService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", personDAO.index());
+        model.addAttribute("people", peopleService.findAll());
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String infoPerson(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDAO.findById(id));
-        model.addAttribute("books", bookDAO.findByOwner(id));
+        model.addAttribute("person", peopleService.findById(id));
+        Set<Book> stBooks = booksService.findByOwner((Person) model.getAttribute("person"));
+        model.addAttribute("books", stBooks);
+        for (Book book : stBooks) {
+            book.setOverdue();
+        }
         return "people/info";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDAO.findById(id));
+        model.addAttribute("person", peopleService.findById(id));
         return "people/edit";
     }
 
@@ -49,7 +60,7 @@ public class PeopleController {
         peopleValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())
             return "people/edit";
-        personDAO.update(id, person);
+        peopleService.update(id, person);
         return "redirect:/people";
     }
 
@@ -64,13 +75,13 @@ public class PeopleController {
         peopleValidator.validate(person, bindingResult);
         if (bindingResult.hasErrors())
             return "people/new";
-        personDAO.save(person);
+        peopleService.save(person);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
-        personDAO.delete(id);
+        peopleService.deleteById(id);
         return "redirect:/people";
     }
 }
