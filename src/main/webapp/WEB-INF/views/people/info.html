@@ -13,13 +13,13 @@
     </ul>
 </div>
 
-<p th:text="${'Full name: ' + person.getFull_name()}">Name</p>
+<p th:text="${'Full name: ' + person.getFullName()}">Name</p>
 <p th:text="${'Year of birthday: ' + person.getYear_birthday()}">Birthday</p>
 
 <div th:if="${books.size()!=0}">
     <b>Issued books: </b>
     <ul th:each="book : ${books}">
-        <li th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">Here</li>
+        <li th:style="${book.isOverdue()}? 'color:red;'" th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">Here</li>
     </ul>
 </div>
 <div th:unless="${books.size()!=0}">

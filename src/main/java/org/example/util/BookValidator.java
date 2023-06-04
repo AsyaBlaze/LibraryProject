@@ -1,7 +1,7 @@
 package org.example.util;
 
-import org.example.dao.BookDAO;
 import org.example.models.Book;
+import org.example.services.BooksService;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,10 +11,10 @@ import java.time.Year;
 @Component
 public class BookValidator implements Validator {
 
-    private final BookDAO bookDAO;
+    private final BooksService booksService;
 
-    public BookValidator(BookDAO bookDAO) {
-        this.bookDAO = bookDAO;
+    public BookValidator(BooksService booksService) {
+        this.booksService = booksService;
     }
 
     @Override
@@ -26,16 +26,16 @@ public class BookValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Book book = (Book) target;
 
-        if (bookDAO.show(book.getName(), book.getAuthor()).isPresent()) {
-            errors.rejectValue("name", "", "Книга с таким названием и автором уже есть в Базе Данных");
-            errors.rejectValue("author", "", "Книга с таким названием и автором уже есть в Базе Данных");
+        if (booksService.findBookByNameAndAuthor(book.getName(), book.getAuthor()).isPresent()) {
+            errors.rejectValue("name", "", "A book with the same title and author already exists.");
+            errors.rejectValue("author", "", "A book with the same title and author already exists.");
         }
         String year = String.valueOf(book.getYear());
         if (year.length() != 4) {
-            errors.rejectValue("year", "", "Год должен состоять из 4 цифр");
+            errors.rejectValue("year", "", "Year must be 4 digits");
         }
         if (book.getYear() > (Year.now().getValue())) {
-            errors.rejectValue("year", "", "Вы не можете добавить книгу, так как она ещё не вышла");
+            errors.rejectValue("year", "", "You can't add the book because it hasn't been released yet");
         }
     }
 }

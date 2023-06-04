@@ -2,68 +2,95 @@ package org.example.dao;
 
 import org.example.models.Book;
 import org.example.models.Person;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class BookDAO {
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public BookDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public List<Book> index() {
-        return jdbcTemplate.query("SELECT * FROM Book", new BeanPropertyRowMapper<>(Book.class));
-    }
-
-    public Optional<Book> show(String name, String author) {
-        return jdbcTemplate.query("SELECT * FROM Book WHERE name=? AND author=?", new Object[]{name, author},
-                new BeanPropertyRowMapper<>(Book.class)).stream().findAny();
-    }
-
-    public Book findById(int id) {
-        return jdbcTemplate.query("SELECT * FROM Book WHERE book_id = ?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Book.class)).stream().findAny().orElse(null);
-    }
-
-    public List<Book> findByOwner(int id) {
-        return jdbcTemplate.query("SELECT * FROM Book WHERE id_person = ?", new Object[]{id},
-                new BeanPropertyRowMapper<>(Book.class));
-    }
-
-    public void setOwner(int id_p, int id_b) {
-        jdbcTemplate.update("UPDATE Book set id_person=? where book_id=?", id_p, id_b);
-    }
-
-    public void deleteOwner(int id_b) {
-        jdbcTemplate.update("UPDATE Book set id_person=null where book_id=?", id_b);
-    }
-
-    public String getOwner(int id_b) {
-        List<Person> list = jdbcTemplate.query("SELECT Person.* FROM Book JOIN Person ON Book.id_person = person.person_id WHERE Book.book_id = ?",
-                new Object[]{id_b}, new BeanPropertyRowMapper<>(Person.class));
-        return list.size() == 0 ? null : list.get(0).getFull_name();
-    }
-
-    public void save(Book book) {
-        System.out.println(book.getName() + " " + book.getAuthor() + " " + book.getYear());
-        jdbcTemplate.update("INSERT INTO Book(name, author, year) VALUES (?, ?, ?)", book.getName(),
-                book.getAuthor(), book.getYear());
-    }
-
-    public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM Book WHERE book_id=?", id);
-    }
-
-    public void update(int id, Book book) {
-        jdbcTemplate.update("UPDATE Book set name=?, author=?, year=? where book_id = ?", book.getName(), book.getAuthor(),
-                book.getYear(), id);
-    }
+//    private final SessionFactory sessionFactory;
+//
+//    @Autowired
+//    public BookDAO(SessionFactory sessionFactory) {
+//        this.sessionFactory = sessionFactory;
+//    }
+//
+//    @Transactional
+//    public List<Book> index() {
+//        Session session = sessionFactory.getCurrentSession();
+//        return session.createQuery("select b from Book b", Book.class).getResultList();
+//    }
+//
+//    @Transactional
+//    public Optional<Book> show(String name, String author) {
+//        Session session = sessionFactory.getCurrentSession();
+//        return session.createQuery("select b from Book b where b.name=:name_t and b.author=:author_t", Book.class)
+//                .setParameter("name_t", name).setParameter("author_t", author).stream().findAny();
+//    }
+//
+//    @Transactional
+//    public Book findById(int id) {
+//        Session session = sessionFactory.getCurrentSession();
+//        return session.get(Book.class, id);
+//    }
+//
+//    @Transactional
+//    public List<Book> findByOwner(int id) {
+//        Session session = sessionFactory.getCurrentSession();
+//        return session.createQuery("SELECT b from Book b where b.owner.person_id=:id", Book.class)
+//                .setParameter("id", id).getResultList();
+//    }
+//
+//    @Transactional
+//    public void setOwner(int id_p, int id_b) {
+//        Session session = sessionFactory.getCurrentSession();
+//        Book book = session.get(Book.class, id_b);
+//        Person person = session.get(Person.class, id_p);
+//        book.setOwner(person);
+//        person.setBook(book);
+//    }
+//
+//    @Transactional
+//    public void deleteOwner(int id_b) {
+//        Session session = sessionFactory.getCurrentSession();
+//        Book book = session.get(Book.class, id_b);
+//        Person person = book.getOwner();
+//        book.setOwner(null);
+//        person.getBooks().remove(book);
+//    }
+//
+//    @Transactional
+//    public String getOwner(int id_b) {
+//        Session session = sessionFactory.getCurrentSession();
+//        Book book = session.get(Book.class, id_b);
+//        return book.getOwner() == null ? null : book.getOwner().getFull_name();
+//    }
+//
+//    @Transactional
+//    public void save(Book book) {
+//        Session session = sessionFactory.getCurrentSession();
+//        session.persist(book);
+//    }
+//
+//    @Transactional
+//    public void delete(int id) {
+//        Session session = sessionFactory.getCurrentSession();
+//        Book book = session.get(Book.class, id);
+//        session.remove(book);
+//    }
+//
+//    @Transactional
+//    public void update(int id, Book book) {
+//        Session session = sessionFactory.getCurrentSession();
+//        Book curBook = session.get(Book.class, id);
+//        curBook.setName(book.getName());
+//        curBook.setAuthor(book.getAuthor());
+//        curBook.setYear(book.getYear());
+//    }
 }

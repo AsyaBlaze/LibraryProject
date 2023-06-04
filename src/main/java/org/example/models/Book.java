@@ -1,29 +1,64 @@
 package org.example.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.TemporalAmount;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Objects;
+
+@Entity
+@Table(name = "Book")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private int book_id;
 
     @NotEmpty(message = "The title of the book should not be empty")
     @Size(min = 2, max = 100, message = "The title of the book should be from 2 to 100 characters long")
+    @Column(name = "name")
     private String name;
 
     @NotEmpty(message = "The author should not be empty")
     @Size(min = 2, max = 100, message = "The author's name must be from 2 to 100 characters long")
+    @Column(name = "author")
     private String author;
 
     @NotNull
+    @Column(name = "year")
     private int year;
 
-    public Book(int book_id, String name, String author, int year) {
-        this.book_id = book_id;
+    @Column(name = "date_issue")
+    @Temporal(TemporalType.DATE)
+    private Date dateIssue;
+
+    @ManyToOne
+    @JoinColumn(name = "id_person", referencedColumnName = "person_id")
+    private Person owner;
+
+    public Book(String name, String author, int year) {
         this.name = name;
         this.author = author;
         this.year = year;
+        this.dateIssue = null;
     }
 
     public Book() {
+    }
+
+    public Date getDateIssue() {
+        return dateIssue;
+    }
+
+    public void setDateIssue(Date dateIssue) {
+        this.dateIssue = dateIssue;
     }
 
     public String getName() {
@@ -56,6 +91,38 @@ public class Book {
 
     public void setBook_id(int book_id) {
         this.book_id = book_id;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+        this.dateIssue = new Date();
+    }
+
+
+    public boolean isOverdue() {
+        Date dateIssue = this.dateIssue;
+        if (dateIssue == null) {
+            return false;
+        }
+        int days = (int) ((new Date().getTime() - dateIssue.getTime()) / (24 * 60 * 60 * 1000));
+        return days > 10;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return book_id == book.book_id && year == book.year && Objects.equals(name, book.name) && Objects.equals(author, book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(book_id, name, author, year);
     }
 }
 

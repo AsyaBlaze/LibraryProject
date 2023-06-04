@@ -15,12 +15,12 @@
 
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
   <label for="full_name">Enter full name: </label>
-  <input type="text" th:field="*{full_name}" id="full_name"/>
-  <div style="color:red" th:if="${#fields.hasErrors('full_name')}" th:errors="*{full_name}">FullName error</div>
+  <input type="text" th:field="*{fullName}" id="full_name"/>
+<div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">FullName error</div>
   <br/>
   <label for="year_birthday">Enter year of birthday: </label>
   <input type="text" th:field="*{year_birthday}" id="year_birthday"/>
-  <div style="color:red" th:if="${#fields.hasErrors('year_birthday')}" th:errors="*{year_birthday}">birthday error</div>
+<div style="color:red" th:if="${#fields.hasErrors('year_birthday')}" th:errors="*{year_birthday}">birthday error</div>
   <br/>
   <input type="submit" value="Create!"/>
 </form>

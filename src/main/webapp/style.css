@@ -1,0 +1,394 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    transition: .5s ease-in-out;
+}
+
+header:after,
+.container:after,
+footer:after,
+.widget-posts-list li:after,
+#subscribe:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 15px;
+}
+
+.link {
+    text-decoration: none;
+    font-style: normal;
+    color: #5e2f0d;
+}
+
+img[alt="imgg"] {
+    border: 10px solid antiquewhite;
+}
+
+.inpt {
+    color: darkred;
+    font-style: italic;
+}
+
+input:focus {
+    color: #505559;
+}
+
+input {
+    text-transform: capitalize;
+}
+
+.hh {
+    font-family: "Cascadia Mono";
+    color: black;
+    font-weight: 400;
+    background-color: #efcdb8;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.anotation {
+    color: black;
+    font-size: 19px;
+    line-height: 18px;
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+.anotation::first-letter {
+    text-transform: capitalize;
+    font-family: "Cascadia Mono";
+    font-size: 40px;
+    font-style: initial;
+    color: darkred;
+}
+
+.characters {
+    font-size: 18px;
+    text-align: left;
+    margin-top: 15px;
+}
+
+h1 {
+    font-size: 29px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+.header {
+    vertical-align: text-top;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Cascadia Mono";
+}
+
+a:hover {
+    color: firebrick;
+    text-decoration: none;
+}
+
+.nameShop {
+    text-align: center;
+    font-size: 40px;
+    font-family: "Segoe Print";
+    color: #505559;
+    background-color: #d9b59e;
+    margin: 0;
+}
+
+hr {
+    border-top: 3px solid #473214;
+}
+
+.poisk {
+    border: 2px solid #000;
+}
+
+.hello {
+    text-align: center;
+    font-family: "Segoe Print";
+}
+
+.catalogg {
+    border-spacing: 15px;
+
+}
+
+.haract {
+    border: 2px solid #473214;
+    border-collapse: collapse;
+}
+
+.n {
+    border: 2px solid #473214;
+}
+
+.gg:hover {
+    border-color: transparent;
+}
+
+.trtr {
+    height: 50px;
+}
+
+.element {
+    display: inline-block;
+    width: 300px;
+    padding-bottom: 20px;
+}
+
+figcaption {
+    text-align: center;
+}
+
+.catalog {
+    margin: 0 auto;
+    ;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 15px;
+    display: block;
+    text-align: center;
+}
+
+.logo {
+    float: left;
+}
+
+.footer {
+    height: 20px;
+    text-align: right
+}
+
+.booksMain {
+    height: 570px;
+}
+
+.bottom {
+    font-size: 20px;
+    font-family: "Cascadia Mono";
+    width: 300px;
+    height: 60px;
+    margin-left: 10px;
+    background-color: rgba(208, 208, 208, 0.6);
+    border-color: #E5E4E2;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+
+.bottom:hover {
+    background-color: rgba(149, 145, 140, 0.6);
+    border-color: #D0D0D0;
+}
+
+.price {
+    margin-left: 100px;
+}
+
+.logo {
+    margin-top: 6px;
+    display: block;
+    float: left;
+}
+
+.logo span {
+    font-size: 35px;
+    color: #696969;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 36px;
+    vertical-align: middle;
+    margin: 5px 0;
+    text-align: center;
+    text-shadow: 1px 0 1px #C0C0C0,
+        0 1px 1px #C0C0C0,
+        -1px 0 1px #000,
+        0 -1px 1px #000;
+}
+
+#menu {
+    float: right;
+    height: 40px;
+}
+
+#menu li {
+    margin-top: 10px;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+#menu a {
+    color: #4D4D4D;
+    letter-spacing: 1px;
+    font-weight: 600;
+    display: block;
+    line-height: 40px;
+    text-shadow: 0 -1px 1px #C0C0C0;
+}
+
+#menu li:last-child {
+    margin-right: 0;
+}
+
+#searchform {
+    text-align: right;
+    margin-top: 10px;
+    float: right;
+    margin-left: 46px;
+    display: inline-block;
+    position: relative;
+}
+
+#searchform input {
+    width: 500px;
+    float: left;
+    padding-left: 20px;
+    height: 40px;
+    overflow: hidden;
+    outline: none;
+    color: #9E9C9C;
+    font-style: italic;
+    border: none;
+}
+
+#searchform button {
+    background: transparent;
+    height: 40px;
+    border: none;
+    position: absolute;
+    right: 10px;
+    color: #EF5A42;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#searchform input:focus {
+    outline: 2px solid #bd987e;
+}
+
+.Hello {
+    width: 100%;
+    padding-top: 80px;
+    display: inline-block;
+    text-align: center;
+    float: none;
+    padding-bottom: 30px;
+}
+
+.main {
+    margin-right: 160px;
+}
+
+.header {
+    padding-top: 10px;
+    background-color: #BC987E;
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 15px;
+    box-shadow: 5px 6px 2px rgba(0, 0, 0, .05);
+}
+
+body {
+    background-color: #efdecd;
+}
+
+.contacts {
+    text-align: center;
+}
+
+.main-top {
+    width: 100%;
+    max-width: 1400px;
+    display: block;
+    text-align: center;
+    background-color: antiquewhite;
+    margin-top: 40px;
+}
+
+.name-text {
+    font-family: "Cascadia Mono";
+    color: black;
+    font-weight: 400;
+    background-color: #efcdb8;
+    font-size: 23px;
+    margin-bottom: 9px;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.main-top a {
+    target="_blank";
+}
+
+.element-main {
+    display: inline-block;
+    width: 250px;
+
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+
+img[alt="imgg-main"]:hover {
+    transform: scale(1.2);
+}
+
+.footer {
+    margin-top: 60px;
+    height: 80px;
+    background-color: #ab7d5c;
+    padding-bottom: 20px;
+}
+
+.social {
+    padding-top: 15px;
+    text-align: center;
+}
+
+.social a {
+    color: #663c1e;
+    padding: 0 7px;
+    font-size: 23px;
+}
+
+.zz {
+    padding-top: 10px;
+    text-align: center;
+    font-family: "Garamond";
+}
+
+.tovar-characters {
+    margin-top: 45px;
+}
+
+.tovar-price {
+    padding-top: 30px;
+    
+}
+
+.tovar-img {
+    max-width: 30%;
+    height: auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+       
+}
+.tovar-right {
+    float: right;
+    width: 58%;
+    min-width: 500px;
+}
+body {
+    min-width: 1000px;
+}
